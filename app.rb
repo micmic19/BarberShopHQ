@@ -7,6 +7,11 @@ require 'sinatra/activerecord'
 set :database, "sqlite3:barbershop.db"
 
 class Client < ActiveRecord::Base
+	validates :name, presence: true
+	validates :phone, presence: true
+	validates :datestamp, presence: true
+	validates :color, presence: true
+
 end
 
 class Barber < ActiveRecord::Base
@@ -29,12 +34,7 @@ post '/visit' do
 	
 	c = Client.new params[:client]
 	c.save
-	# хеш
-	hh = { 	:username => 'Введите имя',
-			:phone => 'Введите телефон',
-			:datetime => 'Введите дату и время' }
 
-	@error = hh.select {|key,_| params[key] == ""}.values.join(", ")
 
 	if @error != ''
 		return erb :visit
