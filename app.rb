@@ -27,6 +27,7 @@ end
 
 get '/visit' do
 	@c = Client.new
+	@barbers = Barber.all
 	erb :visit
 end
 
